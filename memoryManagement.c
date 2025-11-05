@@ -8,13 +8,6 @@ int ADDRESS_TRACKER = 0;
 int MEMORY_TRACKER = 0;
 int MAX_MEM = 1000;
 
-/*
-    use binary tree.
-    each node consists of how much mem is allocated->starting address and block size.
-    write a func to take input. and return what input type was.
-    another func to alloc memory->return how much was allocated.->mix both 
-    add this value to the tree.
-*/
 node* root = NULL;
 
 void free_tree(node* root) {
@@ -355,26 +348,7 @@ void dealloc(int v){
                     }
                     
                 }                
-                // else if(success<curr->value){
-                //       if(curr->count ==1){
-                //         curr->count --;
-                //         curr->allocated = false;
-                //          success = curr->value- success;
-                //         if(success == 0)
-                //             break;
-                //         insert_or_edit(success);
-                //           break;
-                //     }
-                //    else{
-                //         curr->count --;
-                //         success = curr->value- success;
-                //         if(success == 0)
-                //             break;
-                //         insert_or_edit(success);
-                //         break;
-                //    } 
-                // }
-              
+               
            
     }  
     //if it's already free. check the next highest mem node.   
@@ -385,42 +359,6 @@ void dealloc(int v){
 
 }
 
-// int type_of_data(){
-//         int choice;
-//         int retVal;
-//         printf("choose data type:\n\
-//         1. integer\n\
-//         2. character\n\
-//         3. long\n\
-//         4. Dynamic memory allocation\n");
-//         int check = scanf("%d", &choice);
-//         if(check !=1){
-//             while ((choice = getchar()) != '\n' && choice != EOF);
-//             printf("invalid input");
-//         }
-//         else{
-//              switch (choice)
-//             {
-//             case 1:
-//                 retVal = 1;
-//                 break;
-//             case 2:
-//                 retVal = 2;
-//                 break;
-//             case 3:
-//                 retVal = 3;
-//                 break;
-//             case 4:
-//                 retVal = 4;
-//                 break;               
-//             default:
-//                 retVal = 0;
-//                 break;
-//         }
-//         return retVal;
-// }
-// }
-//return how much memory allocated
 
 //return val on success and -1 on failure
 int to_allocate(){
@@ -463,71 +401,3 @@ int to_deallocate(){
 }
 
 
-// int to_allocate(){
-//     int retVal;
-//     int choice = type_of_data();            
-//     switch (choice)
-//         {
-//         case 1:
-//             retVal = 4;
-//             break;
-//         case 2:
-//             retVal = 1;
-//             break;
-//         case 3:
-//             retVal = 8;
-//             break;
-//         case 4:
-//             retVal = for_dynamic_mem_alloc();
-//             break;
-//         default:
-//             retVal = 0;
-//             printf("pleace choose from the list");
-//             break;
-//         }
-// }
-    
-// int for_dynamic_mem_alloc(){
-//         int choice, n;
-//         int retVal;
-//         printf("allocating as (typeOfData * n)\n\
-//         choose data type:\n\
-//         1. integer\n\
-//         2. character\n\
-//         3. long\n");
-//         int check = scanf("%d", &choice);
-//         if(check !=1){
-//             while ((choice = getchar()) != '\n' && choice != EOF);
-//             printf("invalid input");
-//         }
-//         printf("enter n: ");
-//         int check2 = scanf("%d", &n);
-//         if(check2 !=1){
-//             while ((choice = getchar()) != '\n' && choice != EOF);
-//             printf("invalid input");
-//         }
-//         else{
-//              switch (choice)
-//             {
-//             case 1:
-//                 retVal = 4*n;                
-//                 break;
-//             case 2:
-//                 retVal = n;
-//                 break;
-//             case 3:
-//                 retVal = 8*n;
-//                 break;             
-//             default:
-//                 retVal = 0;
-//                 printf("pleace choose from the list");
-//                 break;
-//         }
-//         return retVal;
-// }
-// }
-
-// node *delete_node(node *root, int dkey);  
-// node *case_a(node *root, node *par,node *ptr);  
-// node *case_b(node *root,node *par,node *ptr);  
-// node *case_c(node *root, node *par,node *ptr); 
