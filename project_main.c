@@ -1,4 +1,4 @@
-/* gcc project_main_final.c process-list.c memoryManagement.c functions.c Deadlock.c */
+/* gcc project_main.c process-list.c memoryManagement.c functions.c Deadlock.c */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -422,3 +422,4 @@ int main(){
 
     return 0;
 }
+
