@@ -16,12 +16,12 @@ void initGraph(graph *g, int vertices) {
             g->adj[i][j] = 0;
         }
     }
-    printf("Graph initialized with %d vertices\n",vertices);
+    printf("Graph initialized with %d Process\n",vertices);
 }
 
 void addVertex(graph*g){
     if(g->vertices >=MAX1){
-        printf("Maximum number of vertices reached");
+        printf("Maximum number of Processes reached");
         return;
     }
 
@@ -31,7 +31,7 @@ void addVertex(graph*g){
         g->adj[n][i] = 0;
     }
     (g->vertices)++;
-    printf(" Vertex %d added successfully\n", n);
+    printf(" Process %d added successfully\n", n);
 }
 
 bool addEdge(graph *g, int u, int v) {
@@ -51,7 +51,7 @@ bool addEdge(graph *g, int u, int v) {
     }
 
     g->adj[u][v] = 1;
-    printf("Edge added between vertex %d and %d\n", u, v);
+    printf("Relation created between Process %d and %d\n", u, v);
     return true;
 }
 
@@ -64,7 +64,7 @@ void displayGraph(graph *g) {
         printf("Graph is not initialized, Please create a graph first.");
         return;
     }
-     printf("\nAdjacency Matrix (%d vertices):\n", g->vertices);
+     printf("\nAdjacency Matrix (%d Process):\n", g->vertices);
      for (int i = 0; i < g->vertices; i++) {
         for (int j = 0; j < g->vertices; j++) {
             printf("%3d", g->adj[i][j]);
