@@ -6,7 +6,7 @@
 
 int ADDRESS_TRACKER = 0;
 int MEMORY_TRACKER = 0;
-int MAX_MEM = 1000;
+int MAX_MEM;
 
 node* root = NULL;
 
@@ -399,5 +399,6 @@ int to_deallocate(){
     return retVal;
 
 }
+
 
 
