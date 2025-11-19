@@ -13,11 +13,18 @@ extern int ADDRESS_TRACKER;
 extern int MEMORY_TRACKER;
 extern int MAX_MEM;
 
-int main(){
+int main(int argc, char **argv){
     bool keep_going = true;
+    if (argc < 2)
+	{
+		printf ("Usage: %s <MaxMemoryCapacity>\n", argv[0]);
+		exit (0);
+	}
+    MAX_MEM = atoi (argv [1]);
+	printf ("\nMaximum memory is %d\n", MAX_MEM);
+
     while (keep_going)
     {
-         printf("\n");
          printf("\n=========================================================\n");
         printf("what functionality would you like to view?:\n1. Memory Management\n2. Process List\n\
 3.CPU Management\n4. Deadlock detection\n5. Quit -");
@@ -158,6 +165,11 @@ int main(){
                                     printf("Exiting...\n");
                                     cont = false;
                                     break;
+                               case 10:
+                                    printf("Enter state to search (RUNNING/READY/BLOCKED/TERMINATED): ");
+                                    scanf(" %[^\n]", state);
+                                    displayProcessesByState(plist, state);
+                                    break;
 
                                 default:
                                     printf("Invalid choice. Try again.\n");
@@ -177,7 +189,7 @@ int main(){
                         Heap minHeap = {.size = 0};
                         while(1)
                         {
-                            printf("Enter number of CPU usage samples: ");
+                            printf("Enter number of time intervals: ");
                             int result = scanf("%d", &n);
 
                             if(result !=1)
@@ -277,11 +289,12 @@ int main(){
                                 printf("\n=========================\n");
                                 printf(" DEADLOCK DETECTION \n");
                                 printf("=========================\n");
-                                printf("1. Acyclic graph (example)\n");
-                                printf("2. Cyclic graph (example)\n");
-                                printf("3. Custom input\n");
-                                printf("4. Add vertex\n");
-                                printf("5. Add edge\n");
+                                printf("Deadlock- When Proceses form a circular chain where each one waits for the next, \n they get stuck forever in deadlock\n");
+                                printf("1. Safe System (example)\n");
+                                printf("2. Unsafe System (example)\n");
+                                printf("3. Create new process system\n");
+                                printf("4. Add Process\n");
+                                printf("5. Add Dependency Process\n");
                                 printf("6. Detect deadlock\n");
                                 printf("7. Exit\n");
                                 printf("Enter choice: ");
@@ -302,12 +315,12 @@ int main(){
                                     addEdge(&g, 0, 1);
                                     addEdge(&g, 1, 2);
                                     addEdge(&g, 2, 3);
-                                    printf("\n Acyclic Graph (No Deadlock)\n");
+                                    printf("\n Safe System (No Deadlock)\n");
                                     displayGraph(&g);
                                     if (detectCycle(&g))
                                         printf("\n DEADLOCK DETECTED (cycle)! System is UNSAFE.\n");
                                     else
-                                        printf("\n Graph is Acyclic (Safe)\n");
+                                        printf("\n System is Safe (graph is acyclic)\n");
                                     break;
 
                                 case 2:
@@ -315,19 +328,18 @@ int main(){
                                     addEdge(&g, 0, 1);
                                     addEdge(&g, 1, 2);
                                     addEdge(&g, 2, 0); // cycle created
-                                    printf("\n--- Cyclic Graph ---\n");
+                                    printf("\n--- Safe System ---\n");
                                     displayGraph(&g);
                                     if (detectCycle(&g))
                                         printf("\nDEADLOCK DETECTED (cycle)! System is UNSAFE.\n");
                                     else
-                                        printf("\n Graph is Acyclic (Safe)\n");
+                                        printf("\n System is Safe (graph is acyclic)\n");
                                     break;
 
                                 case 3:
-                                    printf("Enter number of vertices (v >= 2): ");
-                                    fflush(stdin);
+                                    printf("Enter number of Processes (Processes >= 2): ");
                                     if (scanf("%d", &v)  != 1) {
-                                        printf("Invalid input for vertices!\n");
+                                        printf("Invalid input for Processes!\n");
                                         while (getchar() != '\n'); // clear invalid input
                                         continue;
                                     }
@@ -339,23 +351,23 @@ int main(){
 
                                     initGraph(&g, v);
 
-                                    printf("Enter number of edges: ");
+                                    printf("Enter number of Dependency Processes: ");
                                     if (scanf("%d", &e)!=1 || e > v*v ||e < 0 ) {
-                                        printf("Invalid number of edges");
+                                        printf("Invalid number of Dependency Processes");
                                         while (getchar() != '\n'); // clear invalid input
                                         continue;
                                     }
                                     if(e==0){
-                                        printf("No edges-> graph is acyclic. \n");
+                                        printf("No Dependency Processes-> graph is acyclic. \n");
                                         displayGraph(&g);
                                         printf("Safe Graph\n");
                                         break;
                                     }
 
                                     for (int i = 0; i < e; i++) {
-                                        printf("Enter edge (u v): ");
+                                        printf("Enter which Process(u) waits for Process(v) {u v}: ");
                                         if (scanf("%d %d", &u, &v2) != 2 || u<0 || u>=v || v2<0 || v2>=v) {
-                                            printf(" Invalid edge! Range 0 to %d.\n", v-1);
+                                            printf(" Invalid Dependency Process! Range 0 to %d.\n", v-1);
                                             while (getchar()!='\n'); i--; continue;
                                         }
                                         addEdge(&g, u, v2);
@@ -366,21 +378,21 @@ int main(){
                                     if (detectCycle(&g))
                                         printf("\n Cycle detected!\n");
                                     else
-                                        printf("\n Graph is Acyclic (Safe)\n");
+                                        printf("\n System is Safe (acylic graph)\n");
                                     break;
                                 case 4:
                                     addVertex(&g);
                                     displayGraph(&g);
                                     break;
                                 case 5:
-                                    printf("Add edge (u,v): ");
+                                    printf("Enter which Process(u) waits for Process(v) {u v}: ");
                                     scanf("%d %d", &u,&v2);
                                     addEdge(&g,u,v2);
                                     displayGraph(&g);
                                     break;
                                 case 6:
                                     if(g.vertices < 2) {
-                                        printf("Cannot detect deadlock- need atleast 2 vertices!\n");
+                                        printf("Cannot detect deadlock- need atleast 2 Processes!\n");
                                     } else {
                                         if (detectCycle(&g)) {
                                         printf("\n DEADLOCK DETECTED! System is UNSAFE.\n");
@@ -422,4 +434,3 @@ int main(){
 
     return 0;
 }
-
