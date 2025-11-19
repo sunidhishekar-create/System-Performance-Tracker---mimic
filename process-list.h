@@ -27,3 +27,5 @@ void displayProcessDetails(Process *proc);
 void displayAllProcesses(ProcessList *list);
 void freeProcessList(ProcessList *list);
 void displayMenu();
+
+void displayProcessesByState(ProcessList *plist, const char *state);
